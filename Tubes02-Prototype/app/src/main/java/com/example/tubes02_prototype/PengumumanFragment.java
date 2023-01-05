@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +40,16 @@ public class PengumumanFragment extends Fragment {
         binding = FragmentPengumumanBinding.inflate(inflater);
         pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
         binding.listPengumuman.setAdapter(pengumumanAdapter);
+        Log.d("role1", presenter.user.role);
         if(presenter.user.role.equals("student")){
             binding.fab.hide();
         }else {
             binding.fab.setOnClickListener(this::onClick);
         }
+
+        String token = presenter.user.token;
+        VolleyMain volleyMain = new VolleyMain(this.getContext(), presenter.ui);
+
 
         binding.btnSearch.setOnClickListener(this::onClick);
 

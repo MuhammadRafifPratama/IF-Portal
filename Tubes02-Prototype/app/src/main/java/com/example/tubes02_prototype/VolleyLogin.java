@@ -58,9 +58,9 @@ public class VolleyLogin {
     }
 
     public void processResult(String json) {
-        String token = json.substring(10, json.length()-2);
-        Log.d("debug", token);
-        this.ui.getKeyLogin(token);
+        LoginResult result = gson.fromJson(json, LoginResult.class);
+        Log.d("debug2", result.getToken());
+        this.ui.getKeyLogin(result.getToken());
     }
 
     public interface ILoginActivity {

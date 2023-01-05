@@ -15,6 +15,11 @@ public class MainPresenter {
         this.pengumumans = new ArrayList<>();
     }
 
+    public void loadDataPengumuman(ArrayList<Pengumuman> pengumumans) {
+        this.pengumumans.addAll(pengumumans);
+
+    }
+
 
 }
 
