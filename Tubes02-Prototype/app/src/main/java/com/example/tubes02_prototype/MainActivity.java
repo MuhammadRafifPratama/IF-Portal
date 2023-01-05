@@ -1,6 +1,7 @@
 package com.example.tubes02_prototype;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         this.binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.getSupportActionBar().hide();
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
 
         this.role = getIntent().getStringExtra("role");
         Log.d("role", "role: "+this.role);
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         String email = getIntent().getStringExtra("email");
         String password = getIntent().getStringExtra("password");
         String token = getIntent().getStringExtra("token");
+        Log.d("token", token);
         LoginUser user = new LoginUser(email, password, role,token);
 
         this.presenter = new MainPresenter(this, user);
@@ -75,5 +78,16 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
 
     }
+
+    public void getLoadTags() {
+
+    }
+
+    @Override
+    public void updatePengumumanList(){}
+
+    @Override
+    public void updateTagList(){}
+
 
 }

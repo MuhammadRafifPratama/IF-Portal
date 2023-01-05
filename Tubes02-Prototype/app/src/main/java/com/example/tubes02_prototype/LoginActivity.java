@@ -6,13 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tubes02_prototype.databinding.ActivityLoginBinding;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class LoginActivity extends AppCompatActivity implements VolleyLogin.ILoginActivity{
     ActivityLoginBinding binding;
     String key;
+    Spinner dropdown;
+    String role;
+    String email;
+    String password;
 
 
     @Override
@@ -21,17 +29,21 @@ public class LoginActivity extends AppCompatActivity implements VolleyLogin.ILog
         this.binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.getSupportActionBar().hide();
+
+        String[] roles = getResources().getStringArray(R.array.spinner_role);
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter(this, R.layout.role_dropdown_item, roles);
+        binding.etRole.setAdapter(roleAdapter);
+
 
         binding.btnLogin.setOnClickListener(this::onClick);
     }
 
     public void onClick(View view) {
         if(view == binding.btnLogin){
-            String username = binding.etUsername.getText().toString();
-            String pass = binding.etPass.getText().toString();
-            String role =  binding.etRole.getText().toString();
-            if(!username.equals("") && !pass.equals("") && !role.equals("")){
+            this.email = binding.etUsername.getText().toString();
+            this.password = binding.etPass.getText().toString();
+            this.role = binding.etRole.getText().toString();
+            if(!email.equals("") && !email.equals("") && !role.equals("")){
 //                Intent intent = new Intent(this, MainActivity.class);
 //                intent.putExtra("email", username);
 //                intent.putExtra("password", pass);

@@ -24,6 +24,11 @@ public class PengumumanAdapter extends BaseAdapter {
         this.fragmentManager = fragmentManager;
     }
 
+    public void update(ArrayList<Pengumuman> pengumumans) {
+        this.listPengumuman = pengumumans;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return listPengumuman.size();
