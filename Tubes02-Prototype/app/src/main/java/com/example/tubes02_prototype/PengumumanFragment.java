@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -27,10 +28,11 @@ public class PengumumanFragment extends Fragment {
     FragmentManager fragmentManager;
     public PengumumanFragment() {}
 
-    public static Fragment newInstance(MainPresenter presenter, FragmentManager fragmentManager){
+    public static Fragment newInstance(MainPresenter presenter, FragmentManager fragmentManager, PengumumanAdapter pengumumanAdapter){
         PengumumanFragment fragment = new PengumumanFragment();
         fragment.presenter = presenter;
         fragment.fragmentManager = fragmentManager;
+        fragment.pengumumanAdapter = pengumumanAdapter;
         return fragment;
     }
 
@@ -38,17 +40,18 @@ public class PengumumanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPengumumanBinding.inflate(inflater);
-        pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
         binding.listPengumuman.setAdapter(pengumumanAdapter);
         Log.d("role1", presenter.user.role);
         if(presenter.user.role.equals("student")){
-            binding.fab.hide();
+            binding.btnNew.invalidate();
         }else {
-            binding.fab.setOnClickListener(this::onClick);
+            binding.btnNew.setOnClickListener(this::onClick);
         }
 
         String token = presenter.user.token;
-        VolleyMain volleyMain = new VolleyMain(this.getContext(), presenter.ui);
+        PengumumanAdapter pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
+        binding.listPengumuman.setAdapter(pengumumanAdapter);
+        presenter.loadDataPengumuman();
 
 
         binding.btnSearch.setOnClickListener(this::onClick);
@@ -57,7 +60,14 @@ public class PengumumanFragment extends Fragment {
 
     }
 
-    public void onClick(View view){
+    public void setList() {
+        this.pengumumanAdapter.update(this.presenter.pengumumans);
+    }
 
+    public void onClick(View view){
+        if(view == binding.btnNew) {
+            DialogFragment dialogFragment = new DialogFragment();
+            dialogFragment.show(this.fragmentManager, "PengumumanDetailFragment");
+        }
     }
 }

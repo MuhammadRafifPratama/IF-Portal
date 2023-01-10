@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.tubes02_prototype.databinding.ListPengumumanStringBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PengumumanAdapter extends BaseAdapter {
     protected ArrayList<Pengumuman> listPengumuman;
@@ -20,12 +21,12 @@ public class PengumumanAdapter extends BaseAdapter {
 
     public PengumumanAdapter(MainPresenter presenter, FragmentManager fragmentManager){
         this.presenter = presenter;
-        this.listPengumuman = new ArrayList<>();
         this.fragmentManager = fragmentManager;
+        this.listPengumuman = new ArrayList<>();
     }
 
-    public void update(ArrayList<Pengumuman> pengumumans) {
-        this.listPengumuman = pengumumans;
+    public void update(List<Pengumuman> pengumumans) {
+        this.listPengumuman.addAll(pengumumans);
         notifyDataSetChanged();
     }
 
@@ -48,18 +49,20 @@ public class PengumumanAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ListPengumumanStringBinding binding = ListPengumumanStringBinding.inflate(LayoutInflater.from(viewGroup.getContext()));
         View itemView =  binding.getRoot();
+        ViewHolder viewHolder = new ViewHolder(binding, this.presenter);
+        viewHolder.updateView(i);
         return itemView;
     }
 
     private class ViewHolder {
         ListPengumumanStringBinding binding;
         MainPresenter presenter;
-        MainActivity activity;
+
         int curr;
 
-        public ViewHolder(ListPengumumanStringBinding binding, MainActivity activity, MainPresenter presenter){
+        public ViewHolder(ListPengumumanStringBinding binding, MainPresenter presenter){
             this.binding = binding;
-            this.activity = activity;
+
             this.presenter = presenter;
         }
 

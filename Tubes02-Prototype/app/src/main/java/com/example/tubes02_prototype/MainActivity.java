@@ -17,6 +17,8 @@ import com.example.tubes02_prototype.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements IMainActivity{
     ActivityMainBinding binding;
     DrawerLayout drawer;
@@ -47,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         Log.d("token", token);
         LoginUser user = new LoginUser(email, password, role,token);
 
-        this.presenter = new MainPresenter(this, user);
+        VolleyMain volleyMain = new VolleyMain(this, this);
+        this.presenter = new MainPresenter(this, user, volleyMain);
 
         this.fragmentManager = this.getSupportFragmentManager();
-        this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager);
+        this.pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
+        this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager, pengumumanAdapter);
 
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.add(binding.fragmentsContainer.getId(), this.pengumumanFragment).commit();
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
                     case R.id.btn_home:
                         fragment = pengumumanFragment;
                         break;
+
+                    //tambahin navigation buat Appointment dan FRS
                 }
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -83,11 +89,17 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
     }
 
-    @Override
-    public void updatePengumumanList(){}
 
     @Override
-    public void updateTagList(){}
+    public void updatePengumumanList(List<Pengumuman> pengumumans) {
+        pengumumanAdapter.update(pengumumans);
+    }
+
+    @Override
+    public void updateTagList(Tag[] tags){
+        TagAdapter tagAdapter = new TagAdapter(this.presenter, this.fragmentManager, this);
+        tagAdapter.update(tags);
+    }
 
 
 }

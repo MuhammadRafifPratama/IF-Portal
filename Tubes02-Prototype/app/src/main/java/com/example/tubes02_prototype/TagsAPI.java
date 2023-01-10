@@ -1,18 +1,17 @@
 package com.example.tubes02_prototype;
 
-import android.nfc.Tag;
-
-import java.util.ArrayList;
-
 public class TagsAPI {
-    Tag[] tagList;
+    com.example.tubes02_prototype.Tag[] tagList;
 
-    public TagsAPI(Tag[] tagList) {
+    public TagsAPI(com.example.tubes02_prototype.Tag[] tagList) {
         this.tagList = tagList;
     }
 
-    public Tag getTag(int i) {
+    public com.example.tubes02_prototype.Tag getTag(int i) {
         return tagList[i];
     }
 
+    public Tag[] getTagList() {
+        return tagList;
+    }
 }
