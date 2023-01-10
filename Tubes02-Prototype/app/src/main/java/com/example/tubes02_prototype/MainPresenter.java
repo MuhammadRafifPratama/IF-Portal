@@ -23,6 +23,10 @@ public class MainPresenter {
         volleyMain.callVolleyPengumuman(user.token);
     }
 
+    public void loadDataFRS() {
+        volleyMain.callVolleyFRS(user.token);
+    }
+
 
 }
 

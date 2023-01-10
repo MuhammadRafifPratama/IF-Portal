@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -65,6 +66,46 @@ public class VolleyMain {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    public void callVolleyFRS(String token) {
+        Log.d("debug", "AWE");
+        RequestQueue requestQueue = Volley.newRequestQueue(this.context);
+        String url = BASE_URL + "courses";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("debug", response.toString());
+                ArrayList<Object> data = new ArrayList<>();
+
+                if (response != null) {
+                    for (int i=0; i < response.length(); i++){
+                        try {
+                            data.add(response.get(i));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                for(int i=0; i < data.size(); i++) {
+                    Log.d("debug0011", "data" + data.get(i));
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("debug", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        requestQueue.add(jsonArrayRequest);
     }
 
     public void callVolleyTags(String token) {
