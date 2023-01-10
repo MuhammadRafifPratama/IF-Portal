@@ -44,11 +44,11 @@ public class VolleyMain {
             @Override
             public void onResponse(String response) {
                 Log.d("debug", response);
-                try {
-                    processPengumumansResult(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    processPengumumansResult(response);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -99,15 +99,15 @@ public class VolleyMain {
 
     }
 
-    public void processPengumumansResult(String json) throws JSONException {
-        ListPengumumanResult result = gson.fromJson(json, ListPengumumanResult.class);
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray jsonArray = jsonObject.getJSONArray("data");
-        Type type = new TypeToken<List<Pengumuman>>(){}.getType();
-        List<Pengumuman> pengumumans = gson.fromJson(String.valueOf(jsonArray), type);
-        Log.d("debug", String.valueOf(pengumumans.size()));
-        this.ui.updatePengumumanList(pengumumans);
-    }
+//    public void processPengumumansResult(String json) throws JSONException {
+//        ListPengumumanResult result = gson.fromJson(json, ListPengumumanResult.class);
+//        JSONObject jsonObject = new JSONObject(json);
+//        JSONArray jsonArray = jsonObject.getJSONArray("data");
+//        Type type = new TypeToken<List<Pengumuman>>(){}.getType();
+//        List<Pengumuman> pengumumans = gson.fromJson(String.valueOf(jsonArray), type);
+//        Log.d("debug", String.valueOf(pengumumans.size()));
+//        this.ui.updatePengumumanList(pengumumans);
+//    }
 
 
 }
