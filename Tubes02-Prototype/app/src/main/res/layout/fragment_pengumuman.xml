@@ -1,85 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
     <LinearLayout
-        android:id="@+id/lay_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:id="@+id/Header">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/funnel_icon"
-            android:layout_marginLeft="20dp"
-            />
+            android:id="@+id/ivLogo"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/logo_if_watermark" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="240dp"
-            android:layout_height="50dp"
-            android:hint= "Search"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp">
-
-            <!--this is the actual edit text which takes the input-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="cari"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginBottom="10dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/lay_search"
-        android:id="@+id/lay_button"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#A5A5A5"
-            android:text="refresh"
-            android:id="@+id/btn_refresh"/>
-
-        <Button
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="buat pertemuan baru"
-            android:id="@+id/btn_new"
-            android:layout_marginLeft="10dp"/>
-
+            android:layout_height="65dp"
+            android:text="PERTEMUAN"
+            android:gravity="center"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:layout_marginEnd="30dp"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <ListView
-        android:id="@+id/list_pengumuman"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/lay_button"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Header"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"></ListView>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
