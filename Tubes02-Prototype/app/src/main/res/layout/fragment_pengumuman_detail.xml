@@ -49,21 +49,13 @@
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="edit"
-            android:id="@+id/btn_edit"
-            android:layout_marginRight="10dp"/>
-
-        <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="hapus"
             android:id="@+id/btn_hapus"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/black"/>
     </LinearLayout>
 </RelativeLayout>

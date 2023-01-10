@@ -41,10 +41,9 @@ public class PengumumanDetailFragment extends Fragment {
         binding = FragmentPengumumanDetailBinding.inflate(inflater);
         binding.tvTitle.setText(pengumuman.title);
         binding.tvTags.setText(pengumuman.getTags());
-        binding.tvPengumuman.setText(pengumuman.konten);
 
         binding.btnBack.setOnClickListener(this::onCLick);
-        binding.btnEdit.setOnClickListener(this::onCLick);
+
         binding.btnHapus.setOnClickListener(this::onCLick);
 
         return binding.getRoot();

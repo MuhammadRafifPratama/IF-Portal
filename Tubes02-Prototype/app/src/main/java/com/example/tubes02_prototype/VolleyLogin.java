@@ -51,7 +51,7 @@ public class VolleyLogin {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("debug", "error");
+                Log.d("debug", error.toString());
             }
         });
         requestQueue.add(jsonObject);
