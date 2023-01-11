@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     MainPresenter presenter;
     BottomNavigationView bottomNavigationView;
 
+    Fragment frsFragment;
+    FRSAdapter frsAdapter;
+
     String role;
 
     @Override
@@ -60,8 +63,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         this.pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
         this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager, pengumumanAdapter);
 
+
         this.pertemuanAdapter = new PertemuanAdapter(this.presenter, this.fragmentManager);
         this.pertemuanFragment = PertemuanFragment.newInstance(this.presenter, fragmentManager, pertemuanAdapter);
+
+
+        this.frsAdapter = new FRSAdapter(this.presenter, this.fragmentManager);
+        this.frsFragment = FRSFragment.newInstance(this.presenter, fragmentManager, frsAdapter);
 
 
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
@@ -79,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
                         break;
 
                     //tambahin navigation buat Appointment dan FRS
+
+                    case R.id.btn_frs:
+                        fragment = frsFragment;
+                        break;
                 }
 
                 FragmentManager fragmentManager = getSupportFragmentManager();

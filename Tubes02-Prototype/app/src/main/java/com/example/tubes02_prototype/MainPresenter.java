@@ -28,6 +28,11 @@ public class MainPresenter {
         this.ui.getPertemuan();
     }
 
+    public void loadDataFRS() {
+        volleyMain.callVolleyFRS(user.token);
+    }
+
+
     public void addListPertemuan(String id, String title, String start_datetime, String end_datetime, String description) {
         pertemuans.add(new Pertemuan(id, title, start_datetime, end_datetime, description));
         this.ui.updatePertemuan(pertemuans);
