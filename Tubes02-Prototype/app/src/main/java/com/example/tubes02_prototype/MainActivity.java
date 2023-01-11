@@ -1,7 +1,6 @@
 package com.example.tubes02_prototype;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,6 +16,9 @@ import com.example.tubes02_prototype.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity{
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     DrawerLayout drawer;
     NavigationView navigationView;
     Fragment pengumumanFragment;
+    PertemuanFragment pertemuanFragment;
     PengumumanAdapter pengumumanAdapter;
+    PertemuanAdapter pertemuanAdapter;
     FragmentManager fragmentManager;
     MainPresenter presenter;
     BottomNavigationView bottomNavigationView;
@@ -55,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         this.fragmentManager = this.getSupportFragmentManager();
         this.pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
         this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager, pengumumanAdapter);
+
+        this.pertemuanAdapter = new PertemuanAdapter(this.presenter, this.fragmentManager);
+        this.pertemuanFragment = PertemuanFragment.newInstance(this.presenter, fragmentManager, pertemuanAdapter);
+
 
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.add(binding.fragmentsContainer.getId(), this.pengumumanFragment).commit();
@@ -99,6 +107,17 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     public void updateTagList(Tag[] tags){
         TagAdapter tagAdapter = new TagAdapter(this.presenter, this.fragmentManager, this);
         tagAdapter.update(tags);
+    }
+
+    @Override
+    public void getPertemuan() throws JSONException {
+        VolleyPertemuan task = new VolleyPertemuan(this.presenter, this);
+        task.execute();
+    }
+
+    @Override
+    public void updatePertemuan(ArrayList<Pertemuan> pertemuans) {
+        pertemuanFragment.updateListPertemuan(pertemuans);
     }
 
 
