@@ -1,7 +1,6 @@
 package com.example.tubes02_prototype;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     ActivityMainBinding binding;
     DrawerLayout drawer;
     NavigationView navigationView;
-    Fragment pengumumanFragment;
+    PengumumanFragment pengumumanFragment;
     PengumumanAdapter pengumumanAdapter;
     FragmentManager fragmentManager;
     MainPresenter presenter;
     BottomNavigationView bottomNavigationView;
+    PengumumanBaruFormFragment fragmentPengumumanBaruForm;
+    PengumumanDetailFragment pengumumanDetailFragment;
 
     String role;
 
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
-        this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager, pengumumanAdapter);
+        this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager);
+        this.pengumumanDetailFragment = PengumumanDetailFragment.newInstance(this.presenter, fragmentManager);
 
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.add(binding.fragmentsContainer.getId(), this.pengumumanFragment).commit();
@@ -71,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
                         break;
 
                     //tambahin navigation buat Appointment dan FRS
+                    case R.id.btn_appoint:
+                        break;
+
+                    case R.id.btn_frs:
+                        break;
                 }
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -80,26 +87,35 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
                 return true;
             }
         });
-
-
-
     }
 
-    public void getLoadTags() {
-
-    }
 
 
     @Override
-    public void updatePengumumanList(List<Pengumuman> pengumumans) {
-        pengumumanAdapter.update(pengumumans);
+    public void updatePengumumanList(List<Pengumuman> pengumumans, String cursor) {
+        Log.d("debug", String.valueOf(pengumumans.size()));
+        pengumumanFragment.setList(pengumumans, cursor);
     }
 
     @Override
-    public void updateTagList(Tag[] tags){
-        TagAdapter tagAdapter = new TagAdapter(this.presenter, this.fragmentManager, this);
-        tagAdapter.update(tags);
+    public void updateTagList(List<Tags> tags){
+        pengumumanFragment.setTagList(tags);
     }
+
+    @Override
+    public void setDetailPengumuman(PengumumanDetail pengumuman) {
+        pengumumanDetailFragment.setDetail(pengumuman);
+    }
+
+    @Override
+    public void responNewPengumuman(PengumumanDetail pengumumanDetail) {
+
+    }
+
+//    @Override
+//    public void updateTagListForm(List<Tags> tags) {
+//        fragmentPengumumanBaruForm.setList(tags);
+//    }
 
 
 }

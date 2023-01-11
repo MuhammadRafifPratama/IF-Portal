@@ -21,14 +21,14 @@
         android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:text="Perubahan Kalender Akademik"/>
+        />
 
     <TextView
         android:id="@+id/tv_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
-        android:text="akademik"/>
+        />
 
     <TextView
         android:id="@+id/tv_pengumuman"
@@ -38,14 +38,13 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:text="Perhatikan pengmuman yang tertera di Student Portal."/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_pengumuman"
         android:gravity="center">
 
         <Button

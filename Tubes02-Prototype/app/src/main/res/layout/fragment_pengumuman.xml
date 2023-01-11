@@ -24,20 +24,19 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="240dp"
-            android:layout_height="50dp"
-            android:hint= "Search"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp">
+            android:hint="Tag">
 
-            <!--this is the actual edit text which takes the input-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
+            <AutoCompleteTextView
+                android:id="@+id/et_tag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="none"
+                tools:text="tag" />
         </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/btn_search"
@@ -46,6 +45,8 @@
             android:text="cari"
             android:layout_gravity="end|center_vertical"
             android:layout_marginBottom="10dp"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -65,11 +66,27 @@
             android:id="@+id/btn_refresh"/>
 
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_next"/>
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="buat pertemuan baru"
+            android:text="buat pengumuman baru"
             android:id="@+id/btn_new"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="5dp"/>
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/btn_new"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:contentDescription="plus"-->
+<!--            android:src="@drawable/plus_icon"-->
+<!--            android:layout_marginLeft="200dp"/>-->
 
 
     </LinearLayout>
@@ -77,9 +94,8 @@
     <ListView
         android:id="@+id/list_pengumuman"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/lay_button"/>
-
 
 
 </RelativeLayout>

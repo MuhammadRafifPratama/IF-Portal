@@ -1,37 +1,62 @@
 package com.example.tubes02_prototype;
 
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import androidx.fragment.app.FragmentManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TagAdapter extends BaseAdapter {
     MainPresenter presenter;
     FragmentManager fragmentManager;
-    MainActivity activity;
-    Tag[] tags;
+    List<Tags> tags;
 
-    public TagAdapter(MainPresenter presenter, FragmentManager fragmentManager, MainActivity activity) {
-        this.activity = activity;
+    public TagAdapter(MainPresenter presenter, FragmentManager fragmentManager) {
         this.presenter = presenter;
         this.fragmentManager = fragmentManager;
+        this.tags = new ArrayList<>();
     }
 
-    public void update(Tag[] tags) {
-        this.tags = tags;
+    public void update(List<Tags> tags) {
+        this.tags.addAll(tags);
+        Log.d("debug", this.tags.get(0).getTag());
         notifyDataSetChanged();
+    }
+
+    public List<String> getTagsByName(String tag) {
+        List<String> curr = new ArrayList<>();
+        for(int i=0; i<tags.size(); i++) {
+            if(tags.get(i).tag.equals(tag)) {
+                curr.add(tags.get(i).id);
+            }
+        }
+        return curr;
+    }
+
+    public Tags getTagsByTitle(String tag) {
+        Tags curr = null;
+        for(int i=0; i<tags.size(); i++) {
+            if(tags.get(i).tag.equals(tag)) {
+                curr = tags.get(i);
+            }
+        }
+        return curr;
     }
 
 
     @Override
     public int getCount() {
-        return tags.length;
+        return tags.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return tags[i];
+        return tags.get(i);
     }
 
     @Override

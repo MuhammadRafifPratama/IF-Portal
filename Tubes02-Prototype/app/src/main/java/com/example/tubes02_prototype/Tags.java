@@ -1,12 +1,12 @@
 package com.example.tubes02_prototype;
 
-public class Tag {
+public class Tags {
     protected String tag;
-    protected String tag_id;
+    protected String id;
 
-    public Tag(String tag, String tag_id){
+    public Tags(String id, String tag){
         this.tag = tag;
-        this.tag_id = tag_id;
+        this.id = id;
     }
 
     public String getTag(){
@@ -14,6 +14,6 @@ public class Tag {
     }
 
     public String getTag_id() {
-        return this.tag_id;
+        return this.id;
     }
 }

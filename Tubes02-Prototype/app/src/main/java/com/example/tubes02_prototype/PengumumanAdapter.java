@@ -1,5 +1,6 @@
 package com.example.tubes02_prototype;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PengumumanAdapter extends BaseAdapter {
-    protected ArrayList<Pengumuman> listPengumuman;
+     ArrayList<Pengumuman> listPengumuman;
     protected MainPresenter presenter;
     protected FragmentManager fragmentManager;
+    String next;
 
     public PengumumanAdapter(MainPresenter presenter, FragmentManager fragmentManager){
         this.presenter = presenter;
@@ -26,8 +28,30 @@ public class PengumumanAdapter extends BaseAdapter {
     }
 
     public void update(List<Pengumuman> pengumumans) {
-        this.listPengumuman.addAll(pengumumans);
+        if (this.listPengumuman.size()==0){
+            this.listPengumuman.addAll(pengumumans);
+        }else{
+            while (listPengumuman.size()>0){
+                listPengumuman.remove(0);
+            }
+            this.listPengumuman.addAll(pengumumans);
+        }
+        Log.d("debug", listPengumuman.get(0).title);
         notifyDataSetChanged();
+    }
+
+    public String getId(String title) {
+        String id = "";
+        for(int i=0; i<this.listPengumuman.size(); i++) {
+            if(this.listPengumuman.get(i).title.equals(title)) {
+                id = listPengumuman.get(i).id;
+            }
+        }
+        return id;
+    }
+
+    public void updatePagination(String cursor){
+        this.next = cursor;
     }
 
     @Override
@@ -69,17 +93,19 @@ public class PengumumanAdapter extends BaseAdapter {
         public void updateView(int i) {
             this.curr = i;
             Pengumuman data = listPengumuman.get(i);
+            Log.d("debug", data.title);
             String tag = data.getTags();
 
             binding.tvTitle.setText(data.title);
             binding.tvTags.setText(tag);
 
-            binding.tvTitle.setOnClickListener(this::onClick);
+            binding.ivDetail.setOnClickListener(this::onClick);
         }
 
         public void onClick(View view){
-            if(view == binding.tvTitle){
-                FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.fragments_container, PengumumanDetailFragment.newInstance(presenter, fragmentManager, listPengumuman.get(curr)));
+            if(view == binding.ivDetail){
+                presenter.setPengumuman(listPengumuman.get(curr));
+                FragmentTransaction ft = fragmentManager.beginTransaction().replace(R.id.fragments_container, PengumumanDetailFragment.newInstance(presenter, fragmentManager));
                 ft.commit();
             }
 
