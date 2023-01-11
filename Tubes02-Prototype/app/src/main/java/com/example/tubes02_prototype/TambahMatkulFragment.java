@@ -17,11 +17,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tubes02_prototype.databinding.FrsBinding;
 import com.example.tubes02_prototype.databinding.TambahMatkulBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,28 +78,25 @@ public class TambahMatkulFragment extends Fragment {
         Log.d("debug", "AWE");
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         String url = BASE_URL + "courses";
-//        String url = BASE_URL + "academic-years";
         ArrayList<Object> data = new ArrayList<>();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 Log.d("debug", response.toString());
 
-//                if (response != null) {
-//                    for (int i=0; i < response.length(); i++){
-//                        try {
-//                            data.add(response.get(i));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//
-//                for(int i=0; i < data.size(); i++) {
-////                    Log.d("debug0011", "data" + data.get(i));
-//                }
+                if (response != null) {
+                    for (int i=0; i < response.length(); i++){
+                        try {
+                            data.add(response.get(i));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
-                
+                for(int i=0; i < data.size(); i++) {
+//                    Log.d("debug0011", "data" + data.get(i));
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -112,7 +111,7 @@ public class TambahMatkulFragment extends Fragment {
                 return headers;
             }
         };
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void onClick(View view) {
@@ -123,6 +122,10 @@ public class TambahMatkulFragment extends Fragment {
 
     public void addMatkul() {
 
+    }
+
+    public void updateList(ArrayList<FRS> matakuliah) {
+        this.adapter.setListMataKuliah(matakuliah);
     }
 
 
