@@ -16,6 +16,9 @@ import com.example.tubes02_prototype.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity{
@@ -23,13 +26,17 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
     DrawerLayout drawer;
     NavigationView navigationView;
     PengumumanFragment pengumumanFragment;
-    PengumumanAdapter pengumumanAdapter;
     FragmentManager fragmentManager;
     MainPresenter presenter;
     BottomNavigationView bottomNavigationView;
     PengumumanBaruFormFragment fragmentPengumumanBaruForm;
     PengumumanDetailFragment pengumumanDetailFragment;
+    PertemuanFragment pertemuanFragment;
+    PengumumanAdapter pengumumanAdapter;
+    PertemuanAdapter pertemuanAdapter;
 
+    Fragment frsFragment;
+    FRSAdapter frsAdapter;
     String role;
 
     @Override
@@ -58,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
         this.pengumumanFragment = PengumumanFragment.newInstance(this.presenter, fragmentManager);
         this.pengumumanDetailFragment = PengumumanDetailFragment.newInstance(this.presenter, fragmentManager);
 
+        this.pertemuanAdapter = new PertemuanAdapter(this.presenter, this.fragmentManager);
+        this.pertemuanFragment = PertemuanFragment.newInstance(this.presenter, fragmentManager, pertemuanAdapter);
+
+
+        this.frsAdapter = new FRSAdapter(this.presenter, this.fragmentManager);
+        this.frsFragment = FRSFragment.newInstance(this.presenter, fragmentManager, frsAdapter);
+
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.add(binding.fragmentsContainer.getId(), this.pengumumanFragment).commit();
 
@@ -74,9 +88,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 
                     //tambahin navigation buat Appointment dan FRS
                     case R.id.btn_appoint:
+                        fragment = pertemuanFragment;
                         break;
 
                     case R.id.btn_frs:
+                        fragment = frsFragment;
                         break;
                 }
 
@@ -116,6 +132,17 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
 //    public void updateTagListForm(List<Tags> tags) {
 //        fragmentPengumumanBaruForm.setList(tags);
 //    }
+
+    @Override
+    public void getPertemuan() throws JSONException {
+        VolleyPertemuan task = new VolleyPertemuan(this.presenter, this);
+        task.execute();
+    }
+
+    @Override
+    public void updatePertemuan(ArrayList<Pertemuan> pertemuans) {
+        pertemuanFragment.updateListPertemuan(pertemuans);
+    }
 
 
 }

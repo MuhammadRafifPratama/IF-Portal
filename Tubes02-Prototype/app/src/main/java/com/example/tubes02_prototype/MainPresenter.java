@@ -12,6 +12,7 @@ public class MainPresenter {
     protected IMainActivity ui;
     protected VolleyMain volleyMain;
     protected Pengumuman pengumuman;
+    ArrayList<Pertemuan> pertemuans;
     LoginUser user;
 
     public MainPresenter(IMainActivity ui, LoginUser user, VolleyMain volleyMain){
@@ -19,7 +20,7 @@ public class MainPresenter {
         this.user = user;
         this.volleyMain = volleyMain;
         this.pengumumans = new ArrayList<>();
-
+        this.pertemuans = new ArrayList<>();
     }
 
     public void loadDataPengumuman() {
@@ -62,6 +63,20 @@ public class MainPresenter {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getPertemuan() throws JSONException {
+        this.ui.getPertemuan();
+    }
+
+    public void loadDataFRS() {
+        volleyMain.callVolleyFRS(user.token);
+    }
+
+
+    public void addListPertemuan(String id, String title, String start_datetime, String end_datetime, String description) {
+        pertemuans.add(new Pertemuan(id, title, start_datetime, end_datetime, description));
+        this.ui.updatePertemuan(pertemuans);
     }
 
 

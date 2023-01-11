@@ -1,5 +1,8 @@
 package com.example.tubes02_prototype;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IMainActivity {
@@ -8,4 +11,6 @@ public interface IMainActivity {
     void setDetailPengumuman(PengumumanDetail pengumuman);
     //void updateTagListForm(List<Tags> tags);
     void responNewPengumuman(PengumumanDetail pengumumanDetail);
+    void getPertemuan() throws JSONException;
+    void updatePertemuan(ArrayList<Pertemuan> pertemuans);
 }
