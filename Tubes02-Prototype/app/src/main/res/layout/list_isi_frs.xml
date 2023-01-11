@@ -12,5 +12,5 @@
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Nama MK"/>
+        android:text="Nama Mata Kuliah"/>
 </LinearLayout>

@@ -30,6 +30,13 @@ public class MainPresenter {
 
     public void loadDataFRS() {
         volleyMain.callVolleyFRS(user.token);
+
+    public ArrayList<Object> loadDataFRS() {
+        ArrayList<Object> data = volleyMain.callVolleyFRS(user.token);
+        Log.d("debug001", "loadDataFRS: " + data.size());
+
+        return data;
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.tubes02_prototype;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,10 @@ public class FRSAdapter extends BaseAdapter {
     protected ArrayList<FRS> listFRS;
     MainPresenter presenter;
     FragmentManager fragmentManager;
+    private Activity activity;
+
+    ListFrsBinding binding;
+
 
     public FRSAdapter(MainPresenter presenter, FragmentManager fragmentManager) {
         this.presenter = presenter;
@@ -22,8 +27,8 @@ public class FRSAdapter extends BaseAdapter {
         this.listFRS = new ArrayList<>();
     }
 
-    public void updateList(ArrayList<FRS> frs) {
-        this.listFRS.addAll(frs);
+    public void setListFRS(ArrayList<FRS> frs) {
+        this.listFRS = frs;
         notifyDataSetChanged();
     }
 
@@ -43,10 +48,11 @@ public class FRSAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ListFrsBinding binding = ListFrsBinding.inflate(LayoutInflater.from(viewGroup.getContext()));
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        binding = ListFrsBinding.inflate(LayoutInflater.from(viewGroup.getContext()));
         View views = binding.getRoot();
         ViewHolder viewHolder = new ViewHolder(binding, this.presenter);
+
 
         return views;
     }
@@ -55,12 +61,14 @@ public class FRSAdapter extends BaseAdapter {
         ListFrsBinding binding;
         MainPresenter presenter;
 
+        int curr;
+
         public ViewHolder(ListFrsBinding binding, MainPresenter presenter) {
             this.binding = binding;
             this.presenter = presenter;
         }
 
-        public void updateView() {
+        public void updateView(int i) {
 
         }
     }

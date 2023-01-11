@@ -40,23 +40,23 @@ public class PengumumanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPengumumanBinding.inflate(inflater);
-        binding.listPengumuman.setAdapter(pengumumanAdapter);
-        Log.d("role1", presenter.user.role);
-        if(presenter.user.role.equals("student")){
-            binding.btnNew.invalidate();
-        }else {
-            binding.btnNew.setOnClickListener(this::onClick);
-        }
+//        binding.listPengumuman.setAdapter(pengumumanAdapter);
+//        Log.d("role1", presenter.user.role);
+//        if(presenter.user.role.equals("student")){
+//            binding.btnNew.invalidate();
+//        }else {
+//            binding.btnNew.setOnClickListener(this::onClick);
+//        }
+//
+//        String token = presenter.user.token;
+//        PengumumanAdapter pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
+//        binding.listPengumuman.setAdapter(pengumumanAdapter);
+//        presenter.loadDataPengumuman();
+//
+//
+//        binding.btnSearch.setOnClickListener(this::onClick);
 
-        String token = presenter.user.token;
-        PengumumanAdapter pengumumanAdapter = new PengumumanAdapter(this.presenter, this.fragmentManager);
-        binding.listPengumuman.setAdapter(pengumumanAdapter);
-        presenter.loadDataPengumuman();
-
-
-        binding.btnSearch.setOnClickListener(this::onClick);
-
-        return binding.getRoot();
+        return null;
 
     }
 
@@ -65,9 +65,9 @@ public class PengumumanFragment extends Fragment {
     }
 
     public void onClick(View view){
-        if(view == binding.btnNew) {
-            DialogFragment dialogFragment = new DialogFragment();
-            dialogFragment.show(this.fragmentManager, "PengumumanDetailFragment");
-        }
+//        if(view == binding.btnNew) {
+//            DialogFragment dialogFragment = new DialogFragment();
+//            dialogFragment.show(this.fragmentManager, "PengumumanDetailFragment");
+//        }
     }
 }

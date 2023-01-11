@@ -68,15 +68,15 @@ public class VolleyMain {
         requestQueue.add(stringRequest);
     }
 
-    public void callVolleyFRS(String token) {
+    public ArrayList<Object> callVolleyFRS(String token) {
         Log.d("debug", "AWE");
         RequestQueue requestQueue = Volley.newRequestQueue(this.context);
         String url = BASE_URL + "courses";
+        ArrayList<Object> data = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("debug", response.toString());
-                ArrayList<Object> data = new ArrayList<>();
 
                 if (response != null) {
                     for (int i=0; i < response.length(); i++){
@@ -89,7 +89,7 @@ public class VolleyMain {
                 }
 
                 for(int i=0; i < data.size(); i++) {
-                    Log.d("debug0011", "data" + data.get(i));
+//                    Log.d("debug0011", "data" + data.get(i));
                 }
             }
         }, new Response.ErrorListener() {
@@ -106,6 +106,9 @@ public class VolleyMain {
             }
         };
         requestQueue.add(jsonArrayRequest);
+
+
+        return data;
     }
 
     public void callVolleyTags(String token) {
