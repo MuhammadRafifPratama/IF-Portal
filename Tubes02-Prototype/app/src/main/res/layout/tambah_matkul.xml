@@ -79,7 +79,8 @@
             android:layout_marginBottom="30dp"
             android:src="@drawable/ic_baseline_add_24"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:id="@+id/btn_tambah"/>
 
     </LinearLayout>
 

@@ -11,68 +11,63 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tubes02_prototype.databinding.FragmentPengumumanBinding;
 import com.example.tubes02_prototype.databinding.FrsBinding;
+import com.example.tubes02_prototype.databinding.TambahMatkulBinding;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class FRSFragment extends Fragment {
-    FrsBinding binding;
-    FRSAdapter frsAdapter;
+public class TambahMatkulFragment extends Fragment {
+    TambahMatkulBinding binding;
+    TambahMatkulAdapter adapter;
     MainPresenter presenter;
     FragmentManager fragmentManager;
 
     String BASE_URL = "https://ifportal.labftis.net/api/v1/";
 
-    private ListView listView;
+    ListView lvMatkul;
+    ListView lvPrasyarat;
 
-    public FRSFragment() {}
+    public TambahMatkulFragment() {}
 
-    public static Fragment newInstance(MainPresenter presenter, FragmentManager fragmentManager, FRSAdapter frsAdapter) {
-        FRSFragment frsFragment = new FRSFragment();
-        frsFragment.presenter = presenter;
-        frsFragment.fragmentManager = fragmentManager;
-        frsFragment.frsAdapter = frsAdapter;
+    public static Fragment newInstance(MainPresenter presenter, FragmentManager fragmentManager, TambahMatkulAdapter adapter) {
+        TambahMatkulFragment tambahMatkulFragment = new TambahMatkulFragment();
+        tambahMatkulFragment.presenter = presenter;
+        tambahMatkulFragment.fragmentManager = fragmentManager;
+        tambahMatkulFragment.adapter = adapter;
 
-        return frsFragment;
+        return tambahMatkulFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.binding = FrsBinding.inflate(inflater);
-        this.binding.lvSemester.setAdapter(frsAdapter);
+        this.binding = TambahMatkulBinding.inflate(inflater);
+        this.binding.lvMatkul.setAdapter(adapter);
 
         Log.d("role", presenter.user.role);
 
         String token = presenter.user.token;
-        FRSAdapter frsAdapter = new FRSAdapter(this.presenter, this.fragmentManager);
+        TambahMatkulAdapter adapter = new TambahMatkulAdapter(this.presenter, this.fragmentManager);
 
-        presenter.loadDataFRS();
+        this.lvMatkul = this.binding.lvMatkul;
+        this.lvPrasyarat = this.binding.lvPrasyarat;
 
-        this.listView = this.binding.lvSemester;
-        this.binding.lvSemester.setAdapter(frsAdapter);
+        this.binding.lvMatkul.setAdapter(adapter);
 
-//        this.binding.lvSemester.setOnItemClickListener(this::onClick);
-
-        API();
+        this.binding.btnTambah.setOnClickListener(this::onClick);
 
         return binding.getRoot();
     }
@@ -80,7 +75,7 @@ public class FRSFragment extends Fragment {
     public void API() {
         Log.d("debug", "AWE");
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        String url = BASE_URL + "students/email/aguero@sergio.com";
+        String url = BASE_URL + "courses";
 //        String url = BASE_URL + "academic-years";
         ArrayList<Object> data = new ArrayList<>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(), new Response.Listener<JSONObject>() {
@@ -102,12 +97,7 @@ public class FRSFragment extends Fragment {
 ////                    Log.d("debug0011", "data" + data.get(i));
 //                }
 
-                try {
-                    int initialYear = response.getInt("initial_year");
-                    Log.d("debug", "onResponse: " + initialYear);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                
             }
         }, new Response.ErrorListener() {
             @Override
@@ -126,38 +116,13 @@ public class FRSFragment extends Fragment {
     }
 
     private void onClick(View view) {
-        if (view==this.binding.lvSemester) {
-//            DetailSemesterFragment detailSemesterFragment = new DetailSemesterFragment();
-//            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//
-//            transaction.replace(this.fragmen)
+        if (view==this.binding.btnTambah) {
+
         }
     }
 
-    public void addSemester(int initialYear) {
-        int ganjilgenap = initialYear % 10;
-        initialYear/=10;
-        int temp = 2023 - initialYear;
+    public void addMatkul() {
 
-        ArrayList<Semester> tempArrayListSemester = new ArrayList<>();
-
-        for (int i = 0; i < temp; i++) {
-            String tempSemester = "";
-            if (ganjilgenap%2==0) {
-                tempSemester = "Semester Genap " + initialYear+i + "-" + initialYear+i+1;
-            }else {
-                tempSemester = "Semester Ganjil " + initialYear+i + "-" + initialYear+i+1;
-            }
-            ganjilgenap++;
-            Semester semester = new Semester(tempSemester);
-            tempArrayListSemester.add(semester);
-        }
-
-        updateList(tempArrayListSemester);
-    }
-
-    public void updateList(ArrayList<Semester> semesters) {
-        this.frsAdapter.setListSemester(semesters);
     }
 
 

@@ -30,19 +30,16 @@ public class MainPresenter {
 
     public void loadDataFRS() {
         volleyMain.callVolleyFRS(user.token);
-
-    public ArrayList<Object> loadDataFRS() {
-        ArrayList<Object> data = volleyMain.callVolleyFRS(user.token);
-        Log.d("debug001", "loadDataFRS: " + data.size());
-
-        return data;
-
     }
 
 
     public void addListPertemuan(String id, String title, String start_datetime, String end_datetime, String description) {
         pertemuans.add(new Pertemuan(id, title, start_datetime, end_datetime, description));
         this.ui.updatePertemuan(pertemuans);
+    }
+
+    public String getToken() {
+        return this.user.token;
     }
 }
 

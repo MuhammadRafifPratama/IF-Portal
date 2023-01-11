@@ -68,7 +68,7 @@ public class VolleyMain {
         requestQueue.add(stringRequest);
     }
 
-    public ArrayList<Object> callVolleyFRS(String token) {
+    public void callVolleyFRS(String token) {
         Log.d("debug", "AWE");
         RequestQueue requestQueue = Volley.newRequestQueue(this.context);
         String url = BASE_URL + "courses";
@@ -106,9 +106,6 @@ public class VolleyMain {
             }
         };
         requestQueue.add(jsonArrayRequest);
-
-
-        return data;
     }
 
     public void callVolleyTags(String token) {

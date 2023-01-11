@@ -13,7 +13,7 @@ import com.example.tubes02_prototype.databinding.ListFrsBinding;
 import java.util.ArrayList;
 
 public class FRSAdapter extends BaseAdapter {
-    protected ArrayList<FRS> listFRS;
+    protected ArrayList<Semester> listSemester;
     MainPresenter presenter;
     FragmentManager fragmentManager;
     private Activity activity;
@@ -24,22 +24,22 @@ public class FRSAdapter extends BaseAdapter {
     public FRSAdapter(MainPresenter presenter, FragmentManager fragmentManager) {
         this.presenter = presenter;
         this.fragmentManager = fragmentManager;
-        this.listFRS = new ArrayList<>();
+        this.listSemester = new ArrayList<>();
     }
 
-    public void setListFRS(ArrayList<FRS> frs) {
-        this.listFRS = frs;
+    public void setListSemester(ArrayList<Semester> semester) {
+        this.listSemester = semester;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.listFRS.size();
+        return this.listSemester.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listFRS.get(i);
+        return listSemester.get(i);
     }
 
     @Override
